@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>💙 Minha Estrela Azul 💙</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap");
+
+      :root {
+        --azul-escuro: #0a1b3d;
+        --azul-claro: #7bbcff;
+        --azul-suave: #d1e9ff;
+        --azul-brilhante: #a1d3ff;
+        --vidro: rgba(255, 255, 255, 0.1);
+        --branco-suave: rgba(255, 255, 255, 0.9);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        min-height: 100vh; /* garante altura mínima igual à tela */
+        overflow-y: auto; /* permite rolagem vertical */
+        display: flex;
+        flex-direction: column; /* para alinhar os elementos de cima para baixo */
+        justify-content: flex-start;
+        align-items: center;
+        background: radial-gradient(circle at top, #1e3c7a, var(--azul-escuro));
+        font-family: "Poppins", sans-serif;
+        color: var(--azul-suave);
+        position: relative;
+      }
+
+      /* Fundo de corações */
+      #hearts-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .heart {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: none;
+        opacity: 0;
+        animation: floatUp 5s linear forwards;
+      }
+
+      .heart svg {
+        width: 100%;
+        height: 100%;
+        fill: var(--azul-claro);
+        filter: drop-shadow(0 0 8px var(--azul-claro));
+        animation: pulse 1.5s ease-in-out infinite;
+      }
+
+      .heart.burst {
+        animation: burstHeart 1s ease-out forwards;
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(0) scale(0.5) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.7;
+        }
+        100% {
+          transform: translateY(-120vh) scale(1.2) rotate(10deg);
+          opacity: 0;
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          filter: drop-shadow(0 0 8px var(--azul-claro));
+        }
+        50% {
+          transform: scale(1.1);
+          filter: drop-shadow(0 0 12px var(--azul-brilhante));
+        }
+      }
+
+      @keyframes burstHeart {
+        0% {
+          transform: translate(-50%, -50%) scale(0.5);
+          opacity: 0.8;
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(2);
+          opacity: 0;
+        }
+      }
+
+      /* Botão inicial */
+      #start-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 3;
+        background: linear-gradient(
+          135deg,
+          var(--azul-claro),
+          var(--azul-brilhante)
+        );
+        color: #fff;
+        font-size: clamp(1rem, 4vw, 1.4rem);
+        padding: 14px 36px;
+        border: none;
+        border-radius: 40px;
+        box-shadow: 0 4px 15px rgba(123, 188, 255, 0.4);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: "Playfair Display", serif;
+        animation: pulsar 2s infinite ease-in-out;
+      }
+      #start-button:hover {
+        transform: translate(-50%, -50%) scale(1.1);
+        box-shadow: 0 6px 25px rgba(123, 188, 255, 0.6);
+        background: linear-gradient(
+          135deg,
+          var(--azul-brilhante),
+          var(--azul-claro)
+        );
+      }
+      @keyframes pulsar {
+        0%,
+        100% {
+          box-shadow: 0 4px 15px rgba(123, 188, 255, 0.4);
+        }
+        50% {
+          box-shadow: 0 6px 30px rgba(123, 188, 255, 0.7);
+        }
+      }
+
+      /* Card principal */
+      .container {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        padding: clamp(20px, 6vw, 35px);
+        background: var(--vidro);
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 35px rgba(123, 188, 255, 0.2);
+        backdrop-filter: blur(10px);
+        max-width: min(90vw, 420px);
+        width: 100%;
+        opacity: 0;
+        transform: translateY(60px) scale(0.9);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+      .container.show {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      /* Moldura da foto */
+      .photo-frame {
+        width: clamp(130px, 35vw, 160px);
+        height: clamp(130px, 35vw, 160px);
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 auto 15px;
+        border: 2px solid var(--azul-claro);
+        box-shadow: 0 0 15px rgba(123, 188, 255, 0.3);
+        animation: flutuar 4s ease-in-out infinite;
+      }
+      .photo-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+      .photo-frame:hover img {
+        transform: scale(1.08);
+      }
+
+      /* Título */
+      .message {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.6rem, 5vw, 2rem);
+        color: var(--azul-suave);
+        text-shadow: 0 0 12px var(--azul-claro);
+        margin-bottom: 12px;
+        animation: brilho 2.5s ease-in-out infinite alternate;
+      }
+
+      /* Texto */
+      .textinho {
+        font-size: clamp(0.85rem, 2.8vw, 0.95rem);
+        line-height: 1.9;
+        color: var(--branco-suave);
+        background: rgba(255, 255, 255, 0.07);
+        padding: 12px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(123, 188, 255, 0.1);
+      }
+
+      /* Assinatura */
+      .signature {
+        margin-top: 15px;
+        font-size: clamp(0.75rem, 2.2vw, 0.85rem);
+        color: var(--azul-claro);
+        font-style: italic;
+        opacity: 0.9;
+      }
+
+      /* Animações */
+      @keyframes brilho {
+        from {
+          text-shadow: 0 0 6px var(--azul-claro);
+        }
+        to {
+          text-shadow: 0 0 15px var(--azul-suave), 0 0 25px var(--azul-claro);
+        }
+      }
+      @keyframes flutuar {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      /* Responsividade geral */
+      @media (max-width: 768px) {
+        .container {
+          padding: 25px;
+          max-width: 90vw;
+        }
+        .photo-frame {
+          width: 140px;
+          height: 140px;
+        }
+        .message {
+          font-size: 1.8rem;
+        }
+        .textinho {
+          font-size: 0.9rem;
+          padding: 10px;
+        }
+        #start-button {
+          font-size: 1.2rem;
+          padding: 12px 30px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 20px;
+          max-width: 85vw;
+        }
+        .photo-frame {
+          width: 120px;
+          height: 120px;
+        }
+        .message {
+          font-size: 1.6rem;
+        }
+        .textinho {
+          font-size: 0.85rem;
+          padding: 8px;
+        }
+        #start-button {
+          font-size: 1.1rem;
+          padding: 10px 25px;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .container {
+          padding: 15px;
+        }
+        .photo-frame {
+          width: 100px;
+          height: 100px;
+        }
+        .message {
+          font-size: 1.4rem;
+        }
+        .textinho {
+          font-size: 0.8rem;
+          padding: 6px;
+        }
+        #start-button {
+          font-size: 1rem;
+          padding: 8px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="hearts-container"></div>
+
+    <button id="start-button">💙 Aperte aqui 💙</button>
+
+    <div class="container" id="card">
+      <div class="photo-frame">
+        <img
+          src="./tucano-de-bico-arco-iris-na-natureza.jpg"
+          alt="Foto dela 💙"
+        />
+      </div>
+      <div class="message">O Azul que faz tudo brilhar 💫</div>
+      <div class="textinho">
+        Você é o azul que dá vida ao meu céu, tornando-o completo. Cada palavra
+        sua é um sopro de paz que aquece meu coração, e seu sorriso… é o brilho
+        que ilumina minha alma. <br /><br />
+        Se churrasco é arte, você é o fogo que transforma meu peito em
+        obra-prima :D
+      </div>
+      <div class="signature">
+        — Com carinho, de quem te admira até nas nuvens 💌
+      </div>
+    </div>
+
+    <script>
+      const heartsContainer = document.getElementById("hearts-container");
+
+      function createHeart(isBurst = false) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        if (isBurst) heart.classList.add("burst");
+
+        heart.innerHTML = `
+          <svg viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
+              2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09
+              C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5
+              c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        `;
+
+        const size = isBurst
+          ? 30 + Math.random() * 20
+          : 10 + Math.random() * 15;
+        heart.style.width = `${size}px`;
+        heart.style.height = `${size}px`;
+        heart.style.left = isBurst ? "50%" : `${Math.random() * 100}vw`;
+        heart.style.top = isBurst ? "50%" : "100vh";
+
+        const colors = ["#7bbcff", "#a1d3ff", "#d1e9ff"];
+        heart.querySelector("svg").style.fill =
+          colors[Math.floor(Math.random() * colors.length)];
+
+        heart.style.animationDuration = isBurst
+          ? "1s"
+          : `${4 + Math.random() * 3}s`;
+        heart.style.opacity = isBurst ? 0.8 : 0.4 + Math.random() * 0.3;
+
+        if (!isBurst)
+          heart.style.animation = `floatUp ${
+            4 + Math.random() * 3
+          }s linear forwards, sway 2s ease-in-out infinite`;
+
+        heartsContainer.appendChild(heart);
+        heart.addEventListener("animationend", () => heart.remove());
+      }
+
+      const styleSheet = document.styleSheets[0];
+      styleSheet.insertRule(
+        `
+        @keyframes sway {
+          0%, 100% { transform: translateX(0); }
+          50% { transform: translateX(${10 + Math.random() * 10}px); }
+        }
+      `,
+        styleSheet.cssRules.length
+      );
+
+      setInterval(() => createHeart(false), 300);
+
+      const startButton = document.getElementById("start-button");
+      const card = document.getElementById("card");
+      startButton.addEventListener("click", () => {
+        startButton.style.transition = "opacity 0.4s ease, transform 0.4s ease";
+        startButton.style.opacity = "0";
+        startButton.style.transform = "translate(-50%, -50%) scale(0.85)";
+
+        for (let i = 0; i < 10; i++) {
+          setTimeout(() => createHeart(true), i * 50);
+        }
+
+        setTimeout(() => {
+          startButton.style.display = "none";
+          card.classList.add("show");
+        }, 400);
+      });
+    </script>
+  </body>
+</html>
