@@ -9,13 +9,14 @@
 
       :root {
         --azul-escuro: #0a1b3d;
-        --azul-claro: #7bbcff;
+        --azul-claro: #1a4979;
         --azul-suave: #d1e9ff;
-        --azul-brilhante: #a1d3ff;
-        --vidro: rgba(255, 255, 255, 0.1);
-        --branco-suave: rgba(255, 255, 255, 0.9);
+        --azul-brilhante: #000000;
+        --branco-suave: rgba(255, 255, 255, 0.95);
         --pastel-pink: #ffccff;
         --pastel-lilac: #e6ccff;
+        --envelope-color: #f5f6f5;
+        --letter-bg: rgba(200, 220, 240, 0.95);
       }
 
       * {
@@ -26,15 +27,13 @@
 
       body {
         min-height: 100vh;
-        overflow-y: auto;
         display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
+        justify-content: center;
         align-items: center;
         background: radial-gradient(circle at top, #1e3c7a, var(--azul-escuro));
         font-family: "Poppins", sans-serif;
         color: var(--azul-suave);
-        position: relative;
+        overflow: auto;
       }
 
       #hearts-container {
@@ -49,33 +48,29 @@
 
       .heart {
         position: absolute;
-        width: 20px;
-        height: 20px;
+        width: 15px;
+        height: 15px;
         background: none;
         opacity: 0;
-        animation: floatUp 6s ease-in-out forwards;
+        animation: floatUp 5s ease-in-out forwards;
       }
 
       .heart svg {
         width: 100%;
         height: 100%;
         fill: var(--azul-claro);
-        filter: drop-shadow(0 0 8px var(--azul-claro));
-        animation: pulse 1.8s ease-in-out infinite;
-      }
-
-      .heart.heart-pattern {
-        animation: heartPattern 2s ease-out forwards;
+        filter: drop-shadow(0 0 6px var(--azul-claro));
+        animation: pulse 1.5s ease-in-out infinite;
       }
 
       .sparkle {
         position: absolute;
-        width: 8px;
-        height: 8px;
+        width: 6px;
+        height: 6px;
         background: var(--azul-suave);
         border-radius: 50%;
         opacity: 0;
-        animation: sparkleFade 1.2s ease-out forwards;
+        animation: sparkleFade 1s ease-out forwards;
       }
 
       @keyframes floatUp {
@@ -84,13 +79,13 @@
           opacity: 0;
         }
         10% {
-          opacity: 0.8;
+          opacity: 0.7;
         }
         50% {
-          transform: translateY(-60vh) scale(1) rotate(20deg) translateX(15px);
+          transform: translateY(-50vh) scale(1) rotate(15deg) translateX(10px);
         }
         100% {
-          transform: translateY(-120vh) scale(1.4) rotate(-20deg);
+          transform: translateY(-100vh) scale(1.3) rotate(-15deg);
           opacity: 0;
         }
       }
@@ -99,159 +94,167 @@
         0%,
         100% {
           transform: scale(1);
-          filter: drop-shadow(0 0 8px var(--azul-claro));
+          filter: drop-shadow(0 0 6px var(--azul-claro));
         }
         50% {
-          transform: scale(1.15);
-          filter: drop-shadow(0 0 14px var(--azul-brilhante));
-        }
-      }
-
-      @keyframes heartPattern {
-        0% {
-          transform: translate(-50%, -50%) scale(0.5);
-          opacity: 0.8;
-        }
-        100% {
-          transform: translate(-50%, -50%) scale(1.5);
-          opacity: 0;
+          transform: scale(1.1);
+          filter: drop-shadow(0 0 10px var(--azul-brilhante));
         }
       }
 
       @keyframes sparkleFade {
         0% {
           transform: scale(0.5) rotate(0deg);
-          opacity: 0.8;
+          opacity: 0.7;
         }
         100% {
-          transform: scale(1.5) rotate(90deg);
+          transform: scale(1.3) rotate(90deg);
           opacity: 0;
         }
       }
 
-      #start-button {
-        position: absolute;
-        top: 25%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 3;
-        background: linear-gradient(
-          135deg,
-          var(--azul-claro),
-          var(--azul-brilhante)
-        );
-        color: #fff;
-        font-size: clamp(1rem, 4vw, 1.4rem);
-        padding: 14px 36px;
-        border: none;
-        border-radius: 40px;
-        box-shadow: 0 4px 15px rgba(123, 188, 255, 0.4);
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-family: "Playfair Display", serif;
-        animation: pulsar 2.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
-      }
-      #start-button:hover {
-        transform: translate(-50%, -50%) scale(1.1) rotate(2deg);
-        box-shadow: 0 6px 25px rgba(123, 188, 255, 0.6);
-        background: linear-gradient(
-          135deg,
-          var(--azul-brilhante),
-          var(--azul-claro)
-        );
-      }
-      @keyframes pulsar {
-        0%,
-        100% {
-          transform: translate(-50%, -50%) scale(1);
-          box-shadow: 0 4px 15px rgba(123, 188, 255, 0.4);
-        }
-        50% {
-          transform: translate(-50%, -50%) scale(1.05) rotate(3deg);
-          box-shadow: 0 6px 30px rgba(123, 188, 255, 0.7);
-        }
-      }
-
-      .container {
-        margin-top: 30px;
-        margin-bottom: 30px;
+      .envelope-container {
+        width: min(80vw, 350px);
+        height: 250px;
         position: relative;
         z-index: 2;
-        text-align: center;
-        padding: clamp(20px, 6vw, 35px);
-        background: var(--vidro);
-        border-radius: 15px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 8px 35px rgba(123, 188, 255, 0.2);
-        backdrop-filter: blur(10px);
-        max-width: min(90vw, 420px);
-        width: 100%;
-        opacity: 0;
-        transform: perspective(1000px) rotateY(90deg) scale(0.5);
-        transform-origin: center;
-        transition: none;
-      }
-      .container.show {
-        animation: openCard 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+        perspective: 1000px;
+        cursor: pointer;
       }
 
-      @keyframes openCard {
-        0% {
-          opacity: 0;
-          transform: perspective(1000px) rotateY(90deg) scale(0.5);
-        }
-        50% {
-          opacity: 0.7;
-          transform: perspective(1000px) rotateY(-10deg) scale(1.1);
-        }
-        100% {
-          opacity: 1;
-          transform: perspective(1000px) rotateY(0deg) scale(1);
-        }
+      .envelope {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transform-style: preserve-3d;
+      }
+
+      .envelope-front,
+      .envelope-back,
+      .envelope-flap,
+      .letter {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+        backface-visibility: hidden;
+      }
+
+      .envelope-front {
+        background: var(--envelope-color);
+        border: 1px solid var(--azul-claro);
+        box-shadow: 0 4px 15px rgba(123, 188, 255, 0.2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1rem, 3.5vw, 1.4rem);
+        color: var(--azul-escuro);
+        text-shadow: 0 0 6px var(--azul-claro);
+        text-align: center;
+        z-index: 3;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      .envelope-flap {
+        background: var(--envelope-color);
+        border: 1px solid var(--azul-claro);
+        clip-path: polygon(0 0, 100% 0, 50% 50%, 0 0);
+        transform-origin: top;
+        transform: rotateX(0deg);
+        z-index: 4;
+        transition: transform 0.6s ease-in-out, z-index 0.6s;
+      }
+
+      .envelope.open .envelope-flap {
+        transform: rotateX(-180deg);
+        z-index: 1;
+      }
+
+      .envelope-back {
+        background: var(--envelope-color);
+        border: 1px solid var(--azul-claro);
+        box-shadow: 0 4px 15px rgba(123, 188, 255, 0.2);
+        z-index: 2;
+      }
+
+      .letter {
+        background: var(--letter-bg);
+        border: 1px solid var(--azul-claro);
+        box-shadow: 0 4px 15px rgba(123, 188, 255, 0.2);
+        transform: translateY(50%);
+        opacity: 0;
+        padding: clamp(15px, 5vw, 20px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        transition: transform 0.6s ease-in-out 0.6s, opacity 0.6s ease-in-out 0.6s, position 0s 1.2s, top 0s 1.2s, left 0s 1.2s, width 0s 1.2s, height 0s 1.2s;
+        z-index: 0;
+        overflow-y: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .letter::-webkit-scrollbar {
+        display: none;
+      }
+
+      .envelope.open .letter {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 1;
+        z-index: 10;
+        width: min(90vw, 450px);
+        height: 360px;
       }
 
       .photo-frame {
-        width: clamp(130px, 35vw, 160px);
-        height: clamp(130px, 35vw, 160px);
+        width: clamp(110px, 32vw, 130px);
+        height: clamp(110px, 32vw, 130px);
         border-radius: 50%;
         overflow: hidden;
-        margin: 0 auto 15px;
+        margin: 0 auto 10px;
         border: 2px solid var(--azul-claro);
-        box-shadow: 0 0 15px rgba(123, 188, 255, 0.3);
-        animation: popFrame 3s ease-in-out infinite;
+        box-shadow: 0 0 10px rgba(123, 188, 255, 0.3);
+        animation: popFrame 2s ease-in-out infinite;
       }
+
       .photo-frame img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         transition: transform 0.3s ease;
       }
+
       .photo-frame:hover img {
-        transform: scale(1.08);
+        transform: scale(1.05);
       }
 
       .message {
         font-family: "Playfair Display", serif;
-        font-size: clamp(1.6rem, 5vw, 2rem);
-        color: var(--azul-suave);
-        text-shadow: 0 0 12px var(--azul-claro);
-        margin-bottom: 12px;
-        animation: brilho 2.5s ease-in-out infinite alternate;
+        font-size: clamp(1.5rem, 4.8vw, 1.9rem);
+        color: var(--azul-escuro);
+        text-shadow: 0 0 8px var(--azul-claro);
+        margin-bottom: 10px;
+        animation: brilho 2s ease-in-out infinite alternate;
       }
 
       .textinho {
-        font-size: clamp(0.85rem, 2.8vw, 0.95rem);
-        line-height: 1.9;
-        color: var(--branco-suave);
-        background: rgba(255, 255, 255, 0.07);
-        padding: 12px;
-        border-radius: 10px;
-        box-shadow: 0 0 15px rgba(123, 188, 255, 0.1);
+        font-size: clamp(0.8rem, 2.8vw, 0.9rem);
+        line-height: 1.8;
+        color: var(--azul-escuro);
+        background: rgba(255, 255, 255, 0.6);
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(123, 188, 255, 0.1);
       }
 
       .signature {
-        margin-top: 15px;
-        font-size: clamp(0.75rem, 2.2vw, 0.85rem);
+        margin-top: 10px;
+        font-size: clamp(0.7rem, 2.2vw, 0.8rem);
         color: var(--azul-claro);
         font-style: italic;
         opacity: 0.9;
@@ -259,10 +262,10 @@
 
       @keyframes brilho {
         from {
-          text-shadow: 0 0 6px var(--azul-claro);
+          text-shadow: 0 0 4px var(--azul-claro);
         }
         to {
-          text-shadow: 0 0 15px var(--azul-suave), 0 0 25px var(--azul-claro);
+          text-shadow: 0 0 10px var(--azul-suave), 0 0 15px var(--azul-claro);
         }
       }
 
@@ -272,72 +275,73 @@
           transform: translateY(0) scale(1) rotate(0deg);
         }
         50% {
-          transform: translateY(-12px) scale(1.05) rotate(5deg);
+          transform: translateY(-8px) scale(1.03) rotate(3deg);
         }
       }
 
       @media (max-width: 768px) {
-        .container {
-          padding: 25px;
-          max-width: 90vw;
+        .envelope-container {
+          width: 80vw;
+          height: 230px;
         }
-        .photo-frame {
-          width: 140px;
-          height: 140px;
-        }
-        .message {
-          font-size: 1.8rem;
-        }
-        .textinho {
-          font-size: 0.9rem;
-          padding: 10px;
-        }
-        #start-button {
-          font-size: 1.2rem;
-          padding: 12px 30px;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .container {
-          padding: 20px;
-          max-width: 85vw;
+        .envelope.open .letter {
+          width: 90vw;
+          height: 340px;
         }
         .photo-frame {
           width: 120px;
           height: 120px;
         }
         .message {
-          font-size: 1.6rem;
+          font-size: 1.7rem;
         }
         .textinho {
           font-size: 0.85rem;
           padding: 8px;
         }
-        #start-button {
-          font-size: 1.1rem;
-          padding: 10px 25px;
+      }
+
+      @media (max-width: 480px) {
+        .envelope-container {
+          width: 85vw;
+          height: 210px;
+        }
+        .envelope.open .letter {
+          width: 85vw;
+          height: 320px;
+        }
+        .photo-frame {
+          width: 110px;
+          height: 110px;
+        }
+        .message {
+          font-size: 1.5rem;
+        }
+        .textinho {
+          font-size: 0.8rem;
+          padding: 6px;
         }
       }
 
       @media (max-width: 360px) {
-        .container {
-          padding: 15px;
+        .envelope-container {
+          width: 90vw;
+          height: 190px;
+        }
+        .envelope.open .letter {
+          width: 90vw;
+          height: 300px;
         }
         .photo-frame {
           width: 100px;
           height: 100px;
         }
         .message {
-          font-size: 1.4rem;
+          font-size: 1.3rem;
         }
         .textinho {
-          font-size: 0.8rem;
-          padding: 6px;
-        }
-        #start-button {
-          font-size: 1rem;
-          padding: 8px 20px;
+          font-size: 0.75rem;
+          padding: 5px;
         }
       }
     </style>
@@ -345,44 +349,46 @@
   <body>
     <div id="hearts-container"></div>
 
-    <button id="start-button">💙 Aperte aqui 💙</button>
-
-    <div class="container" id="card">
-      <div class="photo-frame">
-        <img
-          src="./tucano-de-bico-arco-iris-na-natureza.jpg"
-          alt="Foto dela 💙"
-        />
-      </div>
-      <div class="message">O Azul dos Meus Sonhos 💫</div>
-      <div class="textinho">
-        Você é o azul que salva meu céu de ser só cinza. Cada palavra sua é um
-        sopro de paz que aquece meu coração, e seu sorriso… é o brilho que
-        ilumina minha alma. <br /><br />
-        Não tenho muito a te oferecer, nem formas de provar o quanto sinto por
-        você, mas saiba que é imenso. Desde que você chegou, meu mundo ganhou
-        cores, e seu riso trouxe de volta um sorriso que eu havia esquecido. Você
-        me deu mil motivos para sorrir, e agora tudo o que quero é mil
-        motivos para te fazer feliz.
-      </div>
-      
-      <br />Parabéns pra você 💙 Espero que seu dia seja tão bonito quanto seu sorriso (e olha
-      que isso é um desafio e tanto). Se eu pudesse, te embrulhava de presente
-      pra mim mesmo — mas como ainda não inventaram essa opção, fico só torcendo
-      pra te ver sorrir hoje.
-      <div class="signature">
-        — Com carinho, de quem te admira até nas nuvens 💌
+    <div class="envelope-container" id="envelope-container">
+      <div class="envelope" id="envelope">
+        <div class="envelope-front">💙 Abra esta cartinha 💙</div>
+        <div class="envelope-flap"></div>
+        <div class="envelope-back"></div>
+        <div class="letter">
+          <div class="photo-frame">
+            <img
+              src="./tucano-de-bico-arco-iris-na-natureza.jpg"
+              alt="Foto dela 💙"
+            />
+          </div>
+          <div class="message">O Azul dos Meus Sonhos 💫</div>
+          <div class="textinho">
+            Você é o azul que salva meu céu de ser só cinza. Cada palavra sua é um
+            sopro de paz que aquece meu coração, e seu sorriso… é o brilho que
+            ilumina minha alma. <br /><br />
+            Não tenho muito a te oferecer, nem formas de provar o quanto sinto por
+            você, mas saiba que é imenso. Desde que você chegou, meu mundo ganhou
+            cores, e seu riso trouxe de volta um sorriso que eu havia esquecido.
+            Você me deu mil motivos para sorrir, e agora tudo o que quero é mil
+            motivos para te fazer feliz. <br /><br />
+            Parabéns pra você 💙 Espero que seu dia seja tão bonito quanto seu
+            sorriso (e olha que isso é um desafio e tanto).
+          </div>
+          <div class="signature">
+            — Com carinho, de quem te admira até nas nuvens 💌
+          </div>
+        </div>
       </div>
     </div>
 
     <script>
       const heartsContainer = document.getElementById("hearts-container");
+      const envelopeContainer = document.getElementById("envelope-container");
+      const envelope = document.getElementById("envelope");
 
-      function createHeart(isBurst = false, isPattern = false, angle = 0, radius = 0) {
+      function createHeart(isBurst = false) {
         const heart = document.createElement("div");
         heart.classList.add("heart");
-        if (isBurst) heart.classList.add("burst");
-        if (isPattern) heart.classList.add("heart-pattern");
 
         heart.innerHTML = `
           <svg viewBox="0 0 24 24">
@@ -393,44 +399,31 @@
           </svg>
         `;
 
-        const size = isBurst
-          ? 30 + Math.random() * 20
-          : isPattern
-          ? 15 + Math.random() * 10
-          : 8 + Math.random() * 20;
+        const size = isBurst ? 15 + Math.random() * 10 : 6 + Math.random() * 8;
         heart.style.width = `${size}px`;
         heart.style.height = `${size}px`;
-        if (isPattern) {
-          const x = 50 + radius * Math.cos(angle);
-          const y = 50 + radius * Math.sin(angle);
-          heart.style.left = `${x}vw`;
-          heart.style.top = `calc(${y}vh - ${size / 2}px)`;
-        } else {
-          heart.style.left = isBurst ? "50%" : `${Math.random() * 100}vw`;
-          heart.style.top = isBurst ? "50%" : "100vh";
-        }
+        heart.style.left = isBurst ? "50%" : `${Math.random() * 100}vw`;
+        heart.style.top = isBurst ? "50%" : "100vh";
 
         const colors = ["#7bbcff", "#a1d3ff", "#d1e9ff", "#ffccff", "#e6ccff"];
         heart.querySelector("svg").style.fill =
           colors[Math.floor(Math.random() * colors.length)];
 
         heart.style.animationDuration = isBurst
-          ? "1.2s"
-          : isPattern
-          ? "2s"
-          : `${5 + Math.random() * 3}s`;
-        heart.style.opacity = isBurst ? 0.9 : isPattern ? 0.8 : 0.5 + Math.random() * 0.3;
+          ? "0.6s"
+          : `${3 + Math.random() * 2}s`;
+        heart.style.opacity = isBurst ? 0.7 : 0.4 + Math.random() * 0.2;
 
-        if (!isBurst && !isPattern)
+        if (!isBurst)
           heart.style.animation = `floatUp ${
-            5 + Math.random() * 3
-          }s ease-in-out forwards, sway 2.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite`;
+            3 + Math.random() * 2
+          }s ease-in-out forwards, sway 1.8s ease-in-out infinite`;
 
         heartsContainer.appendChild(heart);
         heart.addEventListener("animationend", () => heart.remove());
 
-        if (isBurst || isPattern) {
-          for (let i = 0; i < 3; i++) {
+        if (isBurst) {
+          for (let i = 0; i < 2; i++) {
             setTimeout(() => createSparkle(heart.style.left, heart.style.top), 50 * i);
           }
         }
@@ -439,12 +432,14 @@
       function createSparkle(left, top) {
         const sparkle = document.createElement("div");
         sparkle.classList.add("sparkle");
-        const offsetX = Math.random() * 30 - 15;
-        const offsetY = Math.random() * 30 - 15;
+        const offsetX = Math.random() * 15 - 7.5;
+        const offsetY = Math.random() * 15 - 7.5;
         sparkle.style.left = `calc(${left} + ${offsetX}px)`;
         sparkle.style.top = `calc(${top} + ${offsetY}px)`;
-        sparkle.style.background = ["#d1e9ff", "#ffccff", "#e6ccff"][Math.floor(Math.random() * 3)];
-        sparkle.style.width = `${5 + Math.random() * 5}px`;
+        sparkle.style.background = ["#d1e9ff", "#ffccff", "#e6ccff"][
+          Math.floor(Math.random() * 3)
+        ];
+        sparkle.style.width = `${3 + Math.random() * 3}px`;
         sparkle.style.height = sparkle.style.width;
         heartsContainer.appendChild(sparkle);
         sparkle.addEventListener("animationend", () => sparkle.remove());
@@ -455,41 +450,27 @@
         `
         @keyframes sway {
           0%, 100% { transform: translateX(0); }
-          50% { transform: translateX(${10 + Math.random() * 15}px); }
+          50% { transform: translateX(${6 + Math.random() * 8}px); }
         }
       `,
         styleSheet.cssRules.length
       );
 
-      setInterval(() => createHeart(false), 250);
+      setInterval(() => createHeart(false), 400);
 
-      const startButton = document.getElementById("start-button");
-      const card = document.getElementById("card");
-      startButton.addEventListener("click", () => {
-        startButton.style.transition = "opacity 0.4s ease, transform 0.4s ease";
-        startButton.style.opacity = "0";
-        startButton.style.transform = "translate(-50%, -50%) scale(0.8)";
-
-        for (let i = 0; i < 15; i++) {
-          setTimeout(() => createHeart(true), i * 50);
+      envelopeContainer.addEventListener("click", () => {
+        if (!envelope.classList.contains("open")) {
+          envelope.classList.add("open");
+          for (let i = 0; i < 8; i++) {
+            setTimeout(() => createHeart(true), i * 50);
+          }
+          for (let i = 0; i < 6; i++) {
+            setTimeout(
+              () => createSparkle(`${50 + Math.random() * 10 - 5}vw`, `${50 + Math.random() * 10 - 5}vh`),
+              i * 100
+            );
+          }
         }
-
-        setTimeout(() => {
-          startButton.style.display = "none";
-          card.classList.add("show");
-          // Create hearts in a heart-shaped pattern
-          const points = 12;
-          const radius = 20;
-          for (let i = 0; i < points; i++) {
-            const angle = (i / points) * 2 * Math.PI;
-            const heartRadius = radius * (1 - Math.sin(angle));
-            setTimeout(() => createHeart(false, true, angle, heartRadius), i * 100);
-          }
-          // Add extra sparkles around the card
-          for (let i = 0; i < 10; i++) {
-            setTimeout(() => createSparkle(`${50 + Math.random() * 20 - 10}vw`, `${50 + Math.random() * 20 - 10}vh`), i * 100);
-          }
-        }, 400);
       });
     </script>
   </body>
